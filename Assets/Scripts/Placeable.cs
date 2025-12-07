@@ -20,6 +20,6 @@ public class Placeable : MonoBehaviour
 
     void DebugLogTileCordinate()
     {
-        Debug.Log($"x:{tile.cordinate.x} y:{tile.cordinate.y}");
+        Debug.Log($"x:{tile.x} y:{tile.y}");
     }
 }

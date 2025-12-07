@@ -6,13 +6,15 @@ public class Tile
     public List<GameObject> Contents;
     public float size{get; private set;}
     public Vector2 centerPosition{get; private set;}
-    public Vector2 cordinate{get; private set;}
+    public int x {get; private set;}
+    public int y {get; private set;}
     public bool occupied = false;
 
 
     public Tile(Vector2 cordinate, Vector2 centerPosition, float size)
     {
-        this.cordinate = cordinate;
+        this.x = (int)cordinate.x;
+        this.y = (int)cordinate.y;
         this.centerPosition = centerPosition;
         this.size = size;
     }
