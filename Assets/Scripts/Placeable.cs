@@ -3,23 +3,49 @@ using UnityEngine;
 
 public class Placeable : MonoBehaviour
 {
-    public Tile tile {get; private set;}
+    [SerializeField] bool moveToTile = true;
+    public Tile occupiedTile {get; private set;}
 
-    void Place(Tile tile)
+    public void Place(Tile tile)
     {
-        if(AbleToPlace(tile))
+        if(!AbleToPlace(tile))
         {
-            tile.AddItem(this.gameObject);
+            return;
+        }
+
+        tile.AddItem(gameObject);
+        occupiedTile = tile;
+
+        if(moveToTile)
+        {
+            transform.position = tile.centerPosition;
         }
     }
 
     bool AbleToPlace(Tile tile)
     {
-        return tile.occupied;
+        return !tile.IsOccupied();
+    }
+
+    void Remove()
+    {
+        occupiedTile.RemoveItem(gameObject);
     }
 
     void DebugLogTileCordinate()
     {
-        Debug.Log($"x:{tile.x} y:{tile.y}");
+        Debug.Log($"x:{occupiedTile.x} y:{occupiedTile.y}");
+    }
+
+    //! PLACEHOLDER
+    void Start()
+    {
+        Place(GridManager.grid.GetTileWithWorldPosition(transform.position));
+    }
+
+    void OnMouseDown()
+    {
+        Remove();
+        Place(GridManager.grid.GetTile(occupiedTile.x - 1, occupiedTile.y));
     }
 }

@@ -17,17 +17,17 @@ public class TilemapImporter : MonoBehaviour
         {
             TileBase tile = unityTilemap.GetTile(position);
 
-            if (tile != null)
+            if (tile == null)
             {
-                // Convert tilemap cell coords → custom grid coords
-                int x = position.x;
-                int y = position.y;
+                return;
+            }
 
-                // Bounds check
-                if (x >= 0 && x < grid.xSize && y >= 0 && y < grid.ySize)
-                {
-                    grid.tiles[x,y].occupied = true;
-                }
+            int x = position.x;
+            int y = position.y;
+            // Bounds check
+            if (x >= 0 && x < grid.xSize && y >= 0 && y < grid.ySize)
+            {
+                grid.tiles[x,y].occupied = true;
             }
         }
     }

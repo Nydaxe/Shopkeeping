@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Tile
 {
-    public List<GameObject> Contents;
+    public List<GameObject> contents {get; private set;}
     public float size{get; private set;}
     public Vector2 centerPosition{get; private set;}
     public int x {get; private set;}
@@ -17,11 +18,12 @@ public class Tile
         this.y = (int)cordinate.y;
         this.centerPosition = centerPosition;
         this.size = size;
+        contents = new List<GameObject>{};
     }
 
     public void AddItem(GameObject item)
     {
-        Contents.Add(item);
+        contents.Add(item);
 
         Occupier occupier = item.GetComponent<Occupier>();
         if(occupier != null && occupier.enabled)
@@ -32,7 +34,7 @@ public class Tile
 
     public void RemoveItem(GameObject item)
     {
-        Contents.Add(item);
+        contents.Add(item);
 
         Occupier occupier = item.GetComponent<Occupier>();
         if(occupier != null && occupier.enabled)

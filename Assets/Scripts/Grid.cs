@@ -22,9 +22,9 @@ public class Grid
         {
             for (int y = 0; y < ySize; y++)
             {
-                Vector2 worldPosition = origin + new Vector2(x * tileSize, y * tileSize);
+                Vector2 centerWorldPosition = origin + new Vector2((x + .5f) * tileSize, (y + .5f) * tileSize);
 
-                tiles[x, y] = new Tile(new Vector2(x,y), worldPosition, tileSize);
+                tiles[x, y] = new Tile(new Vector2(x,y), centerWorldPosition, tileSize);
             }
         }
     }

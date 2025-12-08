@@ -19,7 +19,7 @@ public class AStarPathfindingMachine : MonoBehaviour
         openList.Clear();
         closedList.Clear();
 
-        if (startTile == null || endTile == null || endTile.IsOccupied())
+        if (endTile == null || endTile.IsOccupied())
         {
             Debug.LogError("Invalid start or end tile.");
             return null;
