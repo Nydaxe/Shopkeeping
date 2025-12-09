@@ -42,10 +42,4 @@ public class Placeable : MonoBehaviour
     {
         Place(GridManager.grid.GetTileWithWorldPosition(transform.position));
     }
-
-    void OnMouseDown()
-    {
-        Remove();
-        Place(GridManager.grid.GetTile(occupiedTile.x - 1, occupiedTile.y));
-    }
 }

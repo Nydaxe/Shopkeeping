@@ -3,32 +3,34 @@ using UnityEngine.Tilemaps;
 
 public class TilemapImporter : MonoBehaviour
 {
-    public Tilemap unityTilemap;
-    public Grid grid;
+    [SerializeField] Tilemap unityTilemap;
 
     void Start()
     {
-        ImportTilemapIntoCustomGrid();
+        ImportCollidableTiles();
     }
 
-    void ImportTilemapIntoCustomGrid()
+    void ImportCollidableTiles()
     {
-        foreach (Vector3Int position in unityTilemap.cellBounds.allPositionsWithin)
+        BoundsInt bounds = unityTilemap.cellBounds;
+
+        foreach (Vector3Int cellPos in bounds.allPositionsWithin)
         {
-            TileBase tile = unityTilemap.GetTile(position);
+            TileBase tileBase = unityTilemap.GetTile(cellPos);
 
-            if (tile == null)
-            {
-                return;
-            }
+            if (!unityTilemap.HasTile(cellPos))
+                continue;
 
-            int x = position.x;
-            int y = position.y;
-            // Bounds check
-            if (x >= 0 && x < grid.xSize && y >= 0 && y < grid.ySize)
-            {
-                grid.tiles[x,y].occupied = true;
-            }
+            int x = cellPos.x;
+            int y = cellPos.y;
+
+            // Bounds check against custom grid
+            if (x < GridManager.grid.origin.x || x > GridManager.grid.xSize*GridManager.grid.tileSize + GridManager.grid.origin.x || y < GridManager.grid.origin.y || y >= GridManager.grid.ySize*GridManager.grid.tileSize + GridManager.grid.origin.x)
+                continue;
+
+            Debug.Log(cellPos);
+            // Occupy the grid cell
+            GridManager.grid.GetTileWithWorldPosition(new Vector2(x,y)).occupied = true;
         }
     }
 }
