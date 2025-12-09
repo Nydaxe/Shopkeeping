@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
         moveInput = value.Get<Vector2>();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         ridgidbody2D.linearVelocity = moveInput * moveSpeed * Time.deltaTime * 50;
     }

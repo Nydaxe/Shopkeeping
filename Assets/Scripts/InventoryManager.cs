@@ -29,18 +29,27 @@ public class InventoryManager : MonoBehaviour
 
     public bool SlotOpen()
     {
-        return inventory.Any(x => x == null);
+        foreach(GameObject slot in inventory)
+        {
+            if(slot == null)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    void AddItem(GameObject item)
+    public void AddItem(GameObject item)
     {
         item.SetActive(false);
-        
+
         for(int i = 0; i < inventory.Length; i++)
         {
             if(inventory[i] == null)
             {
-                inventory[i] = null;
+                inventory[i] = item;
+                return;
             }
         }
     }
