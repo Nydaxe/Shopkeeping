@@ -8,17 +8,26 @@
             "actions": [
                 {
                     "name": "Movement",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "f996a0b4-381a-4233-a4f2-0b8dc0a78a6f",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
-                    "name": "Pickup",
+                    "name": "Interact",
                     "type": "Button",
                     "id": "b50ba5fd-a2f1-4190-b190-58719186a7e8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PlaceItem",
+                    "type": "Button",
+                    "id": "1e38a964-97ab-42f8-a336-7933bc067e61",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -29,7 +38,7 @@
                 {
                     "name": "2D Vector",
                     "id": "fadb5099-3a05-4ee3-821d-36c6d36a43f5",
-                    "path": "2DVector",
+                    "path": "2DVector(mode=2)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -88,7 +97,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Pickup",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4720ead3-809c-4578-b113-86ce52eecdc8",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlaceItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

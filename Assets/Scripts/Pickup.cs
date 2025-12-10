@@ -2,46 +2,39 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
-    [SerializeField] string playerTag = "Player";
+    [SerializeField] Collider2D thisCollider;
+    [SerializeField] Placeable placeable;
+
     PlayerInputs playerInputs;
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public void PickUp()
     {
-        if(collision.gameObject.tag == playerTag)
-        {
-            if(playerInputs == null)
-            {
-                playerInputs = collision.gameObject.GetComponent<PlayerInputs>();    
-            }
-
-            playerInputs.InputPickup += PickUp;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == playerTag)
-        {
-            GameObject player = collision.gameObject;
-
-            if(playerInputs == null)
-            {
-                playerInputs = collision.gameObject.GetComponent<PlayerInputs>();    
-            }
-
-            player.GetComponent<PlayerInputs>().InputPickup -= PickUp;
-        }
-    }
-
-    void PickUp()
-    {
+        Debug.Log("yo4");
         if(!InventoryManager.instance.SlotOpen())
         {
             Debug.Log("full");
             return;
         }
 
-        playerInputs.InputPickup -= PickUp;
+        if(placeable != null)
+            placeable.Remove();
+
+        if(thisCollider != null)
+            thisCollider.enabled = false;
+
         InventoryManager.instance.AddItem(this.gameObject);
+    }
+
+    public void Place(Vector2 position)
+    {
+        gameObject.transform.parent = null;
+
+        transform.position = position;
+        
+        if(thisCollider != null)
+            thisCollider.enabled = true;
+
+        if(placeable != null)
+            placeable.Place(GridManager.grid.GetTileWithWorldPosition(transform.position));
     }
 }

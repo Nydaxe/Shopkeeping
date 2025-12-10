@@ -15,6 +15,7 @@ public class Placeable : MonoBehaviour
 
         tile.AddItem(gameObject);
         occupiedTile = tile;
+        Debug.Log("tile tiled");
 
         if(moveToTile)
         {
@@ -27,7 +28,7 @@ public class Placeable : MonoBehaviour
         return !tile.IsOccupied();
     }
 
-    void Remove()
+    public void Remove()
     {
         occupiedTile.RemoveItem(gameObject);
     }

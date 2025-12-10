@@ -7,6 +7,9 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager instance;
 
     [SerializeField] int InventorySlotAmount;
+    [SerializeField] PlayerInputs inputs;
+    [SerializeField] GameObject player;
+    [SerializeField] float placeRange;
 
     public GameObject[] inventory {get; private set;}
 
@@ -24,6 +27,7 @@ public class InventoryManager : MonoBehaviour
     
     void Start()
     {
+        inputs.PlaceItem += PlaceItem;
         inventory = new GameObject[InventorySlotAmount];
     }
 
@@ -42,7 +46,8 @@ public class InventoryManager : MonoBehaviour
 
     public void AddItem(GameObject item)
     {
-        item.SetActive(false);
+        item.transform.parent = gameObject.transform;
+        item.transform.position = gameObject.transform.position;
 
         for(int i = 0; i < inventory.Length; i++)
         {
@@ -51,6 +56,25 @@ public class InventoryManager : MonoBehaviour
                 inventory[i] = item;
                 return;
             }
+        }
+    }
+
+    void PlaceItem()
+    {
+        for(int i = 0; i < inventory.Length; i++)
+        {
+            if(inventory[i] == null)
+            {
+                continue;
+            }
+
+            Pickup pickup = inventory[i].GetComponent<Pickup>();
+
+            inventory[i] = null;
+
+            pickup.Place(new Vector2(player.transform.position.x + placeRange * player.transform.localScale.x, player.transform.position.y));
+            
+            return;
         }
     }
 }

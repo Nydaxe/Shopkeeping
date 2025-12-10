@@ -27,8 +27,6 @@ public class TilemapImporter : MonoBehaviour
             // Bounds check against custom grid
             if (x < GridManager.grid.origin.x || x > GridManager.grid.xSize*GridManager.grid.tileSize + GridManager.grid.origin.x || y < GridManager.grid.origin.y || y >= GridManager.grid.ySize*GridManager.grid.tileSize + GridManager.grid.origin.x)
                 continue;
-
-            Debug.Log(cellPos);
             // Occupy the grid cell
             GridManager.grid.GetTileWithWorldPosition(new Vector2(x,y)).occupied = true;
         }
