@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 public class NPC : MonoBehaviour
 {
@@ -16,7 +17,12 @@ public class NPC : MonoBehaviour
     void OnMouseDown()
     {
         pathToTrace = pathfinding.FindPath(placeable.occupiedTile, GridManager.grid.GetTileWithWorldPosition(testPathEnd.position), GridManager.grid);
-
+        if(pathToTrace == null)
+        {
+            Debug.Log("NPC Path Invalid");
+            return;
+        }
+        
         TracePath(pathToTrace);
     }
 
@@ -38,18 +44,21 @@ public class NPC : MonoBehaviour
             }
 
             Tile nextTile = path[0];
+            placeable.Remove();
             placeable.Place(nextTile);
             transform.position = nextTile.centerPosition;
             path.Remove(nextTile);
-
         }
     }
 
     bool PathValid(List<Tile> path)
     {
-        foreach(Tile tile in path)
+        for (int i = path.Count; i > 0; i--)
         {
-            if(tile.IsOccupied()) 
+            if(i == path.Count)
+            continue;
+
+            if(path[i].IsOccupied()) 
                 return false;
         }
         return true;

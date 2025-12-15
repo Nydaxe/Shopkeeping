@@ -3,8 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] Rigidbody2D ridgidbody2D;
-
     Vector2 moveInput;
 
     void OnMovement(InputValue value)

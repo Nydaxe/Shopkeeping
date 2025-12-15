@@ -34,7 +34,7 @@ public class Tile
 
     public void RemoveItem(GameObject item)
     {
-        contents.Add(item);
+        contents.Remove(item);
 
         Occupier occupier = item.GetComponent<Occupier>();
         if(occupier != null && occupier.enabled)

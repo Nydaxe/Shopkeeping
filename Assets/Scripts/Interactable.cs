@@ -7,7 +7,6 @@ public class Interactable : MonoBehaviour
 
     public void Interact()
     {
-        Debug.Log("yo3");
         interact?.Invoke();
     }
 }

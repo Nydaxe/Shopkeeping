@@ -10,6 +10,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] PlayerInputs inputs;
     [SerializeField] GameObject player;
     [SerializeField] float placeRange;
+    [SerializeField] float itemCarryingVisualMargin;
 
     public GameObject[] inventory {get; private set;}
 
@@ -46,33 +47,42 @@ public class InventoryManager : MonoBehaviour
 
     public void AddItem(GameObject item)
     {
-        item.transform.parent = gameObject.transform;
-        item.transform.position = gameObject.transform.position;
+        int slotNumber = 0;
 
         for(int i = 0; i < inventory.Length; i++)
         {
             if(inventory[i] == null)
             {
+                slotNumber = i;
                 inventory[i] = item;
-                return;
+                break;
             }
         }
+
+        item.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + slotNumber * itemCarryingVisualMargin);
+        item.transform.parent = gameObject.transform;
     }
 
     void PlaceItem()
     {
-        for(int i = 0; i < inventory.Length; i++)
+        for(int i = inventory.Length-1; i >= 0; i--)
         {
             if(inventory[i] == null)
             {
                 continue;
             }
-
+            
             Pickup pickup = inventory[i].GetComponent<Pickup>();
+            Vector2 placingPosition = new Vector2(player.transform.position.x + placeRange * player.transform.localScale.x, player.transform.position.y);
+
+            if(GridManager.grid.GetTileWithWorldPosition(placingPosition).IsOccupied())
+            {
+                Debug.Log("Cannot place, tile is occupied");
+                continue;
+            }
 
             inventory[i] = null;
-
-            pickup.Place(new Vector2(player.transform.position.x + placeRange * player.transform.localScale.x, player.transform.position.y));
+            pickup.Place(placingPosition);
             
             return;
         }
