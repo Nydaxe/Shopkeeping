@@ -14,9 +14,9 @@ public class NPC : MonoBehaviour
     List<Tile> pathToTrace;
 
 
-    void OnMouseDown()
+    void Go(Vector2 position)
     {
-        pathToTrace = pathfinding.FindPath(placeable.occupiedTile, GridManager.grid.GetTileWithWorldPosition(testPathEnd.position), GridManager.grid);
+        pathToTrace = pathfinding.FindPath(placeable.occupiedTile, GridManager.grid.GetTileWithWorldPosition(position), GridManager.grid);
         if(pathToTrace == null)
         {
             Debug.Log("NPC Path Invalid");
