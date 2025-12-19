@@ -15,17 +15,25 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
-        if(instance != null)
-        Destroy(this);
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         instance = this;
+    }
+
+    void Start()
+    {
+        dialoguePanel.SetActive(false);
     }
 
     void Update()
     {
         if (dialoguePanel.activeSelf && Input.GetKeyDown(KeyCode.Space))
         {
-            DisplayNextLine();
+            DisplayNextMessage();
         }
     }
 
@@ -34,10 +42,10 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(true);
         lines.Clear();
 
-        foreach (var line in dialogue)
+        foreach (DialogueLine line in dialogue)
             lines.Enqueue(line);
 
-        DisplayNextLine();
+        DisplayNextMessage();
     }
 
     IEnumerator TypeLine(string line)
@@ -48,19 +56,26 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text += character;
             yield return new WaitForSeconds(typeSpeed);
         }
+
+        if(dialogueText.text != line)
+        {
+            StopAllCoroutines();
+            StartCoroutine(TypeLine("DUDE CHILL"));
+        }
     }
     
-    void DisplayNextLine()
+    void DisplayNextMessage()
     {
+        dialogueText.text = "";
         if (lines.Count == 0)
         {
             EndDialogue();
             return;
         }
 
-        DialogueLine line = lines.Dequeue();
-        speakerText.text = line.speaker;
-        TypeLine(line.text);
+        DialogueLine message = lines.Dequeue();
+        speakerText.text = message.speaker;
+        StartCoroutine(TypeLine(message.text));
     }
 
     void EndDialogue()
