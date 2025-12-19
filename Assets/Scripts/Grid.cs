@@ -36,6 +36,9 @@ public class Grid
     
     public Tile GetTile(int x, int y)
     {
+        if (x < 0 || y < 0 || x >= xSize || y >= ySize) 
+            return null;
+            
         return tiles[x,y];
     }
 }

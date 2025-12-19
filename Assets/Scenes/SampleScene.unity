@@ -1240,6 +1240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AStarPathfindingMachine
   canTravelDiagonals: 0
+  maxTilesToCheck: 500
 --- !u!114 &331543883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1254,7 +1255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   pathfinding: {fileID: 331543882}
   placeable: {fileID: 331543884}
-  pathTracingDelay: 0.2
+  pathTracingDelay: 0.6
 --- !u!114 &331543884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1423,7 +1424,7 @@ MonoBehaviour:
   - {fileID: 310127662}
   - {fileID: 1938247922}
   pathing: {fileID: 331543883}
-  idleDuration: 1.5
+  idleDuration: 3
 --- !u!1 &331612401
 GameObject:
   m_ObjectHideFlags: 0

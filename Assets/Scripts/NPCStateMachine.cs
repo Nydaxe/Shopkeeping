@@ -48,6 +48,15 @@ public class NPCStateMachine : MonoBehaviour
     {
         idleTimer = 0f;
         currentState = newState;
+
+        if (currentState == NPCState.Roam && roamingPoints.Count > 0)
+        {
+            Transform target = roamingPoints[roamIndex];
+            pathing.OnFinishedMovement += FinishedRoaming;
+            pathing.Go(target.position);
+
+            roamIndex = (roamIndex + 1) % roamingPoints.Count;
+        }
     }
 
     void UpdateIdle()
@@ -62,17 +71,6 @@ public class NPCStateMachine : MonoBehaviour
 
     void UpdateRoam()
     {
-        if (roamingPoints.Count == 0)
-            ChangeState(NPCState.Idle);
-
-        if (!pathing.moving)
-        {
-            Transform target = roamingPoints[roamIndex];
-            pathing.Go(target.position);
-            pathing.OnFinishedMovement += FinishedRoaming;
-
-            roamIndex = (roamIndex + 1) % roamingPoints.Count;
-        }
 
     }
 

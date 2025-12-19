@@ -8,6 +8,7 @@ public class AStarPathfindingMachine : MonoBehaviour
     const int DIAGONAL_MOVE_COST = 14;
 
     [SerializeField] bool canTravelDiagonals = false;
+    [SerializeField] int maxTilesToCheck = 500;
 
     List<Node> openList = new List<Node>();
     List<Node> closedList = new List<Node>();
@@ -30,6 +31,14 @@ public class AStarPathfindingMachine : MonoBehaviour
 
         while (openList.Count > 0)
         {
+            if (closedList.Count >= maxTilesToCheck)
+            {
+                Debug.LogWarning("Max tiles checked, stopping pathfinding.");
+                openList.Clear();
+                closedList.Clear();
+                return null;
+            }
+
             Node currentNode = lowestCostNode();
 
             if (currentNode.tile == endTile)
@@ -46,7 +55,7 @@ public class AStarPathfindingMachine : MonoBehaviour
         }
         openList.Clear();
         closedList.Clear();
-        Debug.Log("No path found.");
+        Debug.Log("No path found");
         return null;
     }
 
@@ -59,6 +68,7 @@ public class AStarPathfindingMachine : MonoBehaviour
                 if(!includeDiagonals && x != 0 && y != 0) continue; // Skip diagonals if not allowed
                 if (x == 0 && y == 0) continue; // Skip the current tile
 
+                
                 Tile neighborTile = grid.GetTile(currentNode.tile.x + x, currentNode.tile.y + y);
 
                 if (neighborTile != null && !neighborTile.IsOccupied())

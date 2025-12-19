@@ -26,6 +26,7 @@ public class NPCPathingMachine : MonoBehaviour
         if(pathToTrace == null)
         {
             Debug.Log("NPC Path Invalid");
+            OnFinishedMovement?.Invoke();
             return;
         }
         
@@ -38,17 +39,28 @@ public class NPCPathingMachine : MonoBehaviour
         Debug.Log("Tracing Path");
         while (path.Count > 0)
         {
-            await Awaitable.WaitForSecondsAsync(pathTracingDelay);
-            
             if(!PathValid(path))
             {
-                List<Tile> createdPath = CreatePath(path[path.Count - 1]);
+                if (path.Count == 0)
+                {
+                    return;
+                }
+
+                Tile lastTile = path[path.Count - 1];
+                List<Tile> createdPath = CreatePath(lastTile);
+                
                 if(createdPath != null)
                 {
                     TracePath(createdPath);
+                    return;
                 }
-                return;
+                else
+                {
+                    break;
+                }
             }
+
+            await Awaitable.WaitForSecondsAsync(pathTracingDelay);
 
             Tile nextTile = path[0];
             placeable.Remove();
@@ -73,7 +85,6 @@ public class NPCPathingMachine : MonoBehaviour
 
     List<Tile> CreatePath(Tile targetTile)
     {
-
         List<Tile> newPath = pathfinding.FindPath(placeable.occupiedTile, targetTile, GridManager.grid);
 
         if (newPath == null || newPath.Count == 0)
@@ -81,5 +92,4 @@ public class NPCPathingMachine : MonoBehaviour
 
         return newPath;
     }
-
 }
