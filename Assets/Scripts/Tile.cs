@@ -12,7 +12,7 @@ public class Tile
     public bool occupied = false;
 
     public Action<Vector2Int, GameObject> OnAddObject;
-    public Action<Vector2Int> OnRemoveObject;
+    public Action<Vector2Int, GameObject> OnRemoveObject;
 
 
     public Tile(Vector2 cordinate, Vector2 centerPosition, float size)
@@ -27,7 +27,7 @@ public class Tile
     public void AddItem(GameObject item)
     {
         contents.Add(item);
-        OnAddObject?.Invoke(new Vector2Int(x,y),item);
+        OnAddObject?.Invoke(new Vector2Int(x,y), item);
 
         Occupier occupier = item.GetComponent<Occupier>();
         if(occupier != null && occupier.enabled)
@@ -39,7 +39,7 @@ public class Tile
     public void RemoveItem(GameObject item)
     {
         contents.Remove(item);
-        OnRemoveObject?.Invoke(new Vector2Int(x,y));
+        OnRemoveObject?.Invoke(new Vector2Int(x,y), item);
 
         Occupier occupier = item.GetComponent<Occupier>();
         if(occupier != null && occupier.enabled)

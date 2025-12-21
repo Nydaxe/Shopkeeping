@@ -4,9 +4,18 @@ using UnityEngine;
 public class NPCDialogue : MonoBehaviour
 {
     public List<DialogueLine> dialogue;
+    public List<DialogueLine> fufilledDialogue;
+    public bool fufilled = false;
 
-    void OnMouseDown()
+    public void StartConversation()
     {
-        DialogueManager.instance.StartDialogue(dialogue);
+        if(fufilled)
+        {
+            DialogueManager.instance.StartDialogue(fufilledDialogue);
+        }
+        else
+        {
+            DialogueManager.instance.StartDialogue(dialogue);
+        }
     }
 }

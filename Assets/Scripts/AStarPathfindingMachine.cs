@@ -22,7 +22,7 @@ public class AStarPathfindingMachine : MonoBehaviour
 
         if (endTile == null || endTile.IsOccupied())
         {
-            Debug.LogError("Invalid start or end tile.");
+            Debug.LogError($"Invalid end tile, {endTile.x}, {endTile.y}");
             return null;
         }
 

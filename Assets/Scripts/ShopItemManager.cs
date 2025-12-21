@@ -43,12 +43,18 @@ public class ShopItemManager : MonoBehaviour
 
     void AddItem(Vector2Int gridPosition, GameObject item)
     {
+        if(item.GetComponent<ShopItem>() == null)
+         return;
+         
         Debug.Log(item.name);
         shopItems.Add(gridPosition, item);
     }
 
-    void RemoveItem(Vector2Int gridPosition)
+    void RemoveItem(Vector2Int gridPosition, GameObject item)
     {
+        if(item.GetComponent<ShopItem>() == null)
+            return;
+            
         shopItems.Remove(gridPosition);
     }
 }

@@ -60,7 +60,7 @@ public class DialogueManager : MonoBehaviour
         if(dialogueText.text != line)
         {
             StopAllCoroutines();
-            StartCoroutine(TypeLine("DUDE CHILL"));
+            StartCoroutine(TypeLine("You talk too fast..."));
         }
     }
     

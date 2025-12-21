@@ -20,6 +20,7 @@ public class NPCPathingMachine : MonoBehaviour
         if(moving)
         {
             Debug.Log("too many NPC Go calls");
+            return;
         }
 
         pathToTrace = pathfinding.FindPath(placeable.occupiedTile, GridManager.grid.GetTileWithWorldPosition(position), GridManager.grid);
@@ -63,8 +64,19 @@ public class NPCPathingMachine : MonoBehaviour
             await Awaitable.WaitForSecondsAsync(pathTracingDelay);
 
             Tile nextTile = path[0];
+
+            float facingDir = Mathf.Sign(transform.localScale.x);
+            float moveDir = Mathf.Sign(nextTile.centerPosition.x - transform.position.x);
+
+            if (moveDir != 0 && moveDir != facingDir)
+            {
+                facingDir = moveDir;
+                transform.localScale = new Vector3(facingDir, 1, 1);
+            }
+
             placeable.Remove();
             placeable.Place(nextTile);
+
             transform.position = nextTile.centerPosition;
             path.RemoveAt(0);
         }

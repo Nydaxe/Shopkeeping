@@ -15,14 +15,19 @@ public class NPCStateMachine : MonoBehaviour
 
     public List<Transform> roamingPoints;
 
-    [SerializeField] NPCPathingMachine pathing;
+    public NPCPathingMachine pathing;
     [SerializeField] float idleDuration = 1.5f;
+
+    public Tile tileToGoTo;
+
+    public bool allowRoaming;
 
     float idleTimer;
     int roamIndex;
 
     void Start()
     {
+        allowRoaming = true;
         ChangeState(NPCState.Idle);
     }
 
@@ -44,7 +49,7 @@ public class NPCStateMachine : MonoBehaviour
         }
     }
 
-    void ChangeState(NPCState newState)
+    public void ChangeState(NPCState newState)
     {
         idleTimer = 0f;
         currentState = newState;
@@ -57,10 +62,21 @@ public class NPCStateMachine : MonoBehaviour
 
             roamIndex = (roamIndex + 1) % roamingPoints.Count;
         }
+
+        if (currentState == NPCState.GoTo && tileToGoTo != null)
+        {
+            pathing.OnFinishedMovement += FinishedGoing;
+            pathing.Go(tileToGoTo.centerPosition);
+        }
     }
 
     void UpdateIdle()
     {
+        if(allowRoaming == false)
+        {
+            return;
+        }
+        
         idleTimer += Time.deltaTime;
 
         if (idleTimer >= idleDuration)
@@ -69,17 +85,23 @@ public class NPCStateMachine : MonoBehaviour
         }
     }
 
+    void UpdateGoTo()
+    {
+
+    }
+
     void UpdateRoam()
     {
 
     }
 
-    void UpdateGoTo()
+    void FinishedRoaming()
     {
-        //TODO Add shopping code here
+        pathing.OnFinishedMovement -= FinishedRoaming;
+        ChangeState(NPCState.Idle);
     }
 
-    void FinishedRoaming()
+    void FinishedGoing()
     {
         pathing.OnFinishedMovement -= FinishedRoaming;
         ChangeState(NPCState.Idle);

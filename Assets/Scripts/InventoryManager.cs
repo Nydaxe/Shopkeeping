@@ -4,13 +4,14 @@ using System.Linq;
 
 public class InventoryManager : MonoBehaviour
 {
-    public static InventoryManager instance;
 
+    public static InventoryManager instance;
     [SerializeField] int InventorySlotAmount;
     [SerializeField] PlayerInputs inputs;
     [SerializeField] GameObject player;
     [SerializeField] float placeRange;
     [SerializeField] float itemCarryingVisualMargin;
+    [SerializeField] GameObject hands;
 
     public GameObject[] inventory {get; private set;}
 
@@ -53,7 +54,7 @@ public class InventoryManager : MonoBehaviour
         {
             if(inventory[i] == null)
             {
-                slotNumber = i;
+                slotNumber = i+1;
                 inventory[i] = item;
                 break;
             }
@@ -61,6 +62,8 @@ public class InventoryManager : MonoBehaviour
 
         item.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + slotNumber * itemCarryingVisualMargin);
         item.transform.parent = gameObject.transform;
+
+        UpdateHands();
     }
 
     void PlaceItem()
@@ -84,7 +87,22 @@ public class InventoryManager : MonoBehaviour
             inventory[i] = null;
             pickup.Place(placingPosition);
             
+            UpdateHands();
+
             return;
         }
+    }
+
+    void UpdateHands()
+    {
+        foreach(GameObject item in inventory)
+        {
+            if(item != null)
+            {
+                hands.SetActive(true);
+                return;
+            }
+        }
+        hands.SetActive(false);
     }
 }
