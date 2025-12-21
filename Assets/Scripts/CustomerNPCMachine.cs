@@ -48,7 +48,7 @@ public class CustomerNPCMachine : MonoBehaviour
     {
         stateMachine.pathing.OnFinishedMovement -= FinishedMovement;
 
-        if(targetTile.centerPosition.x - gameObject.transform.position.x > .5 || targetTile.centerPosition.y - gameObject.transform.position.y > .5)
+        if(Mathf.Abs(targetTile.centerPosition.x - gameObject.transform.position.x) > .5 || Mathf.Abs(targetTile.centerPosition.y - gameObject.transform.position.y) > .5)
         {
             Debug.Log("Item blocked?");
             stateMachine.ChangeState(NPCStateMachine.NPCState.Idle);
@@ -91,7 +91,7 @@ public class CustomerNPCMachine : MonoBehaviour
     {
         while(true)
         {
-            await Awaitable.WaitForSecondsAsync(Random.Range(10, 10));
+            await Awaitable.WaitForSecondsAsync(Random.Range(10, 20));
 
             if(shopping)
                 return;

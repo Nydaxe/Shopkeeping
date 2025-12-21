@@ -59,8 +59,9 @@ public class DialogueManager : MonoBehaviour
 
         if(dialogueText.text != line)
         {
+            lines.Clear();
             StopAllCoroutines();
-            StartCoroutine(TypeLine("You talk too fast..."));
+            StartCoroutine(TypeLine("You talk too fast... say that again?"));
         }
     }
     
