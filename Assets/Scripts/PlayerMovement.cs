@@ -4,6 +4,10 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     Vector2 moveInput;
+    [SerializeField] AudioClip walkingAudio;
+    [SerializeField] float volume;
+    [SerializeField] float maxPitch;
+    [SerializeField] float minPitch;
 
     void OnMovement(InputValue value)
     {
@@ -23,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        AudioManager.instance.PlaySoundEffect(walkingAudio, volume, minPitch, maxPitch);
         transform.position = newTile.centerPosition;
     }
 }

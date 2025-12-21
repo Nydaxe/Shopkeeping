@@ -20,7 +20,7 @@ public class AStarPathfindingMachine : MonoBehaviour
         openList.Clear();
         closedList.Clear();
 
-        if (endTile == null || endTile.IsOccupied())
+        if (endTile == null)
         {
             Debug.LogError($"Invalid end tile, {endTile.x}, {endTile.y}");
             return null;
@@ -34,6 +34,7 @@ public class AStarPathfindingMachine : MonoBehaviour
             if (closedList.Count >= maxTilesToCheck)
             {
                 Debug.LogWarning("Max tiles checked, stopping pathfinding.");
+                Debug.LogWarning(new Vector2(endTile.x, endTile.y));
                 openList.Clear();
                 closedList.Clear();
                 return null;

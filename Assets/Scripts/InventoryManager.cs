@@ -12,6 +12,8 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] float placeRange;
     [SerializeField] float itemCarryingVisualMargin;
     [SerializeField] GameObject hands;
+    [SerializeField] AudioClip placingSound;
+    [SerializeField] AudioClip pickingUpSound;
 
     public GameObject[] inventory {get; private set;}
 
@@ -60,6 +62,7 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
+        AudioManager.instance.PlaySoundEffect(pickingUpSound, .7f, .8f, 1f);
         item.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + slotNumber * itemCarryingVisualMargin);
         item.transform.parent = gameObject.transform;
 
@@ -84,6 +87,7 @@ public class InventoryManager : MonoBehaviour
                 continue;
             }
 
+            AudioManager.instance.PlaySoundEffect(placingSound, .7f, .8f, 1f);
             inventory[i] = null;
             pickup.Place(placingPosition);
             

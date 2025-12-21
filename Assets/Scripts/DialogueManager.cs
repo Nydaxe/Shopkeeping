@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI speakerText;
     [SerializeField] TextMeshProUGUI dialogueText;
     [SerializeField] float typeSpeed;
+    [SerializeField] AudioClip talkAudio;
 
     Queue<DialogueLine> lines = new Queue<DialogueLine>();
 
@@ -50,10 +51,32 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator TypeLine(string line)
     {
+        bool audioPlayed = false;
+
         dialogueText.text = "";
+
         foreach (char character in line)
         {
             dialogueText.text += character;
+            
+            if(Random.Range(1,4) >= 2 && audioPlayed == false)
+            {
+                if(speakerText.text == "You")
+                {
+                   AudioManager.instance.PlaySoundEffect(talkAudio, .6f, .7f, 1.1f); 
+                }
+                else
+                {
+                    AudioManager.instance.PlaySoundEffect(talkAudio, .6f, .9f, 1.3f);
+                }
+
+                audioPlayed = true;           
+            }
+            else
+            {
+                audioPlayed = false;
+            }
+
             yield return new WaitForSecondsRealtime(typeSpeed);
         }
 
