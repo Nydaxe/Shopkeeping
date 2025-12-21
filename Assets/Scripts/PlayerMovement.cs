@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour
 
     void OnMovement(InputValue value)
     {
+        if(Time.timeScale == 0)
+            return;
+            
         moveInput = value.Get<Vector2>();
         Tile newTile = GridManager.grid.GetTileWithWorldPosition((Vector2)transform.position + moveInput);
 

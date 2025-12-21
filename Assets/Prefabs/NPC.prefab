@@ -86,7 +86,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2052283285
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 8785034863198750711, guid: 1d272a3c4ff20484ba06c0fbbe8f4082, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AStarPathfindingMachine
   canTravelDiagonals: 0
-  maxTilesToCheck: 500
+  maxTilesToCheck: 5000
 --- !u!114 &2394362709185872344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,6 +206,8 @@ MonoBehaviour:
     text: I like carrots
   - speaker: NPC
     text: I like apples
+  fufilledDialogue: []
+  fufilled: 0
 --- !u!114 &497695157542218550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,6 +242,7 @@ MonoBehaviour:
   stateMachine: {fileID: 497695157542218550}
   buyingDelay: 1
   itemToBuy: {fileID: 0}
+  dialogue: {fileID: 2394362709185872344}
 --- !u!114 &7537333498240098079
 MonoBehaviour:
   m_ObjectHideFlags: 0

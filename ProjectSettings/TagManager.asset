@@ -50,6 +50,9 @@ TagManager:
   - name: Item
     uniqueID: 43578697
     locked: 0
+  - name: Decor
+    uniqueID: 2123653477
+    locked: 0
   - name: NPC
     uniqueID: 2052283285
     locked: 0

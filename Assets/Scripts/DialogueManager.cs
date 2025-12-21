@@ -54,7 +54,7 @@ public class DialogueManager : MonoBehaviour
         foreach (char character in line)
         {
             dialogueText.text += character;
-            yield return new WaitForSeconds(typeSpeed);
+            yield return new WaitForSecondsRealtime(typeSpeed);
         }
 
         if(dialogueText.text != line)
@@ -81,5 +81,6 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         dialoguePanel.SetActive(false);
+        Time.timeScale = 1;
     }
 }

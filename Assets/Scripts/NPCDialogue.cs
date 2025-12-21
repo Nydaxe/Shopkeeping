@@ -17,5 +17,7 @@ public class NPCDialogue : MonoBehaviour
         {
             DialogueManager.instance.StartDialogue(dialogue);
         }
+
+        Time.timeScale = 0;
     }
 }

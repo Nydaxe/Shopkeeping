@@ -71,17 +71,32 @@ public class CustomerNPCMachine : MonoBehaviour
         stateMachine.allowRoaming = true;
         shopping = false;
         shopItem.Buy();
-        itemToBuy.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + .5f);
+        itemToBuy.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 1);
         itemToBuy.transform.parent = this.gameObject.transform;
         dialogue.fufilled = true;
     }
 
-    void OnMouseDown()
+    void TryShopping()
     {
-        if(shopping)
+        if(!ShopItemManager.instance.shopItems.ContainsValue(itemToBuy))
+        {
             return;
+        }
 
         GoToBuyItem(itemToBuy, GridManager.grid.GetTileWithWorldPosition(itemToBuy.transform.position));
         shopping = true;
+    }
+
+    async void Start()
+    {
+        while(true)
+        {
+            await Awaitable.WaitForSecondsAsync(Random.Range(10, 10));
+
+            if(shopping)
+                return;
+
+            TryShopping();
+        }
     }
 }
