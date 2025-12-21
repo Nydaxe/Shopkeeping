@@ -10,7 +10,6 @@ public class Pickup : MonoBehaviour
     {
         if(!InventoryManager.instance.SlotOpen())
         {
-            Debug.Log("full");
             return;
         }
 

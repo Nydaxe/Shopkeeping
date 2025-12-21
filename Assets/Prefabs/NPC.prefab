@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AStarPathfindingMachine
   canTravelDiagonals: 0
-  maxTilesToCheck: 6000
+  maxTilesToCheck: 10000
 --- !u!114 &2394362709185872344
 MonoBehaviour:
   m_ObjectHideFlags: 0

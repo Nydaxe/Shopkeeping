@@ -31,13 +31,7 @@ public class Placeable : MonoBehaviour
     {
         occupiedTile.RemoveItem(gameObject);
     }
-
-    void DebugLogTileCordinate()
-    {
-        Debug.Log($"x:{occupiedTile.x} y:{occupiedTile.y}");
-    }
-
-    //! PLACEHOLDER
+    
     void Start()
     {
         Place(GridManager.grid.GetTileWithWorldPosition(transform.position));

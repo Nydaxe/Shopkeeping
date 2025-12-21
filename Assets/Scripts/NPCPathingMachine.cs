@@ -19,14 +19,12 @@ public class NPCPathingMachine : MonoBehaviour
     {
         if(moving)
         {
-            Debug.Log("too many NPC Go calls");
             return;
         }
 
         pathToTrace = pathfinding.FindPath(placeable.occupiedTile, GridManager.grid.GetTileWithWorldPosition(position), GridManager.grid);
         if(pathToTrace == null)
         {
-            Debug.Log("NPC Path Invalid");
             OnFinishedMovement?.Invoke();
             return;
         }
@@ -37,7 +35,6 @@ public class NPCPathingMachine : MonoBehaviour
 
     async void TracePath(List<Tile> path)
     {
-        Debug.Log("Tracing Path");
         while (path.Count > 0)
         {
             if(!PathValid(path))
@@ -82,7 +79,6 @@ public class NPCPathingMachine : MonoBehaviour
         }
         moving = false;
         OnFinishedMovement?.Invoke();
-        Debug.Log("NPC done moving");
     }
 
     bool PathValid(List<Tile> path)

@@ -50,7 +50,6 @@ public class CustomerNPCMachine : MonoBehaviour
 
         if(Mathf.Abs(targetTile.centerPosition.x - gameObject.transform.position.x) > .5 || Mathf.Abs(targetTile.centerPosition.y - gameObject.transform.position.y) > .5)
         {
-            Debug.Log("Item blocked?");
             stateMachine.ChangeState(NPCStateMachine.NPCState.Idle);
             stateMachine.allowRoaming = true;
             shopping = false;
@@ -59,7 +58,6 @@ public class CustomerNPCMachine : MonoBehaviour
 
         if(!tileWithItem.contents.Contains(itemToBuy))
         {
-            Debug.Log("Item moved?");
             stateMachine.ChangeState(NPCStateMachine.NPCState.Idle);
             stateMachine.allowRoaming = true;
             shopping = false;

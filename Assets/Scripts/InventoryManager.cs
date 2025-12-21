@@ -83,7 +83,6 @@ public class InventoryManager : MonoBehaviour
 
             if(GridManager.grid.GetTileWithWorldPosition(placingPosition).IsOccupied())
             {
-                Debug.Log("Cannot place, tile is occupied");
                 continue;
             }
 

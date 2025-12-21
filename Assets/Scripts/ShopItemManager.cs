@@ -46,7 +46,6 @@ public class ShopItemManager : MonoBehaviour
         if(item.GetComponent<ShopItem>() == null)
          return;
          
-        Debug.Log(item.name);
         shopItems.Add(gridPosition, item);
     }
 
